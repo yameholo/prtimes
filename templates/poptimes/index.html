@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://kit.fontawesome.com/489a3753bf.js"></script>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <title>POP TIMES</title>
+</head>
+
+<body class="home">
+  <header class="header">
+    <h1><a href="{% url 'poptimes:home' %}">POP TIMES</a></h1>
+  </header>
+  <nav class="nav">
+    <ul>
+      <li><a href="{% url 'poptimes:category' category_id='21' %}">アート</a></li>
+      <li><a href="{% url 'poptimes:category' category_id='20' %}">アニメ</a></li>
+      <li><a href="{% url 'poptimes:category' category_id='14' %}">映像</a></li>
+      <li><a href="{% url 'poptimes:category' category_id='17' %}">スポーツ</a></li>
+      <li><a href="{% url 'poptimes:category' category_id='15' %}">音楽</a></li>
+      <li><a href="{% url 'poptimes:category' category_id='37' %}">メンズ</a></li>
+      <li><a href="{% url 'poptimes:category' category_id='68' %}">遊園地</a></li>
+      <li><a href="{% url 'poptimes:category' category_id='43' %}">外食</a></li>
+      <li><a href="{% url 'poptimes:category' category_id='42' %}">飲み物</a></li>
+      <li><a href="{% url 'poptimes:category' category_id='45' %}">美容</a></li>
+      <li><a href="{% url 'poptimes:category' category_id='23' %}">スマホゲー</a></li>
+      <li><a href="{% url 'poptimes:category' category_id='25' %}">おもちゃ</a></li>
+      <li><a href="{% url 'poptimes:category' category_id='41' %}">食べ物</a></li>
+      <li><a href="{% url 'poptimes:category' category_id='36' %}">レディース</a></li>
+      <li><a href="{% url 'poptimes:category' category_id='13' %}">本</a></li>
+      <li><a href="{% url 'poptimes:category' category_id='67' %}">観光</a></li>
+    </ul>
+  </nav>
+  <main class="main">
+    <section class="tile">
+      {% if release_list %}
+      {% for release in release_list %}
+      {% if release.src %}
+      <article class="tile__item">
+        <a href="{% url 'poptimes:detail' company_id=release.company_id release_id=release.release_id %}">
+          <img src="{{ release.src }}" alt="{{ release.title }}">
+          <h1>{{ release.title }}</h1>
+        </a>
+      </article>
+      {% endif %}
+      {% endfor %}
+      {% endif %}
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="container">
+      <small class="copyright">&copy; POP TIMES</small>
+    </div>
+  </footer>
+</body>
+
+</html>
