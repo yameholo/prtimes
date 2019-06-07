@@ -198,6 +198,10 @@ q:before {
   text-align: center;
   background: white;
 }
+.nav ul li.current a {
+  background: var(--main-color);
+  color: white;
+}
 .nav ul li a:hover {
   background: var(--main-color);
   color: white;

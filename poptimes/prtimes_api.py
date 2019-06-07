@@ -8,6 +8,24 @@ list_url = "https://9b199e13.prtimes.tech/list/{page_number}"
 detail_url = "https://9b199e13.prtimes.tech/detail/{company_id}/{release_id}"
 category_url = "https://9b199e13.prtimes.tech/category_release/{category_id}/{page_number}"
 
+CATEGORY_DATA = [
+    ('21', 'アート'),
+    ('20', 'アニメ'),
+    ('14', '映像'),
+    ('15', '音楽'),
+    ('37', 'メンズ'),
+    ('68', '遊園地'),
+    ('43', '外食'),
+    ('42', '飲み物'),
+    ('45', '美容'),
+    ('23', 'スマホゲー'),
+    ('25', 'おもちゃ'),
+    ('41', '食べ物'),
+    ('36', 'レディー'),
+    ('13', '本'),
+    ('67', '観光'),
+]
+
 
 class Release:
     def __init__(self, title, src, company_id, release_id):
@@ -30,6 +48,12 @@ class Entry:
         self.images = images
         self.company_id = company_id
         self.release_id = release_id
+
+
+class Category:
+    def __init__(self, id, name):
+        self.id = id
+        self.name = name
 
 
 def get_detail(company_id, release_id):
@@ -127,23 +151,16 @@ def get_entry(company_id, release_id):
     return entry
 
 
-def get_category():
-    category = set()
-    for i in range(1, 51):
-        url = list_url.format(page_number=i)
-        r = requests.get(url)
-        data = json.loads(r.text)
-        data = data['data']
+def get_category_list():
+    category_list = []
 
-        for record in data:
-            url = detail_url.format(
-                company_id=record['company_id'],
-                release_id=record['release_id']
-            )
-            r = requests.get(url)
-            data = json.loads(r.text)
-            data = data['data']
-            category.add((data['main_category_id'],
-                          data['main_category_name']))
+    for item in CATEGORY_DATA:
+        category_list.append(Category(item[0], item[1]))
 
-    return category
+    return category_list
+
+
+def get_current_category(id):
+    for item in CATEGORY_DATA:
+        if item[0] == str(id):
+            return item[1]

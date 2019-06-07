@@ -8,7 +8,12 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <script src="https://kit.fontawesome.com/489a3753bf.js"></script>
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
-  <title>POP TIMES</title>
+  <title>
+  {% if current_category %}
+    {{ current_category }}｜
+  {% endif %}
+    POP TIMES
+  </title>
 </head>
 
 <body class="home">
@@ -17,22 +22,13 @@
   </header>
   <nav class="nav">
     <ul>
-      <li><a href="{% url 'poptimes:category' category_id='21' %}">アート</a></li>
-      <li><a href="{% url 'poptimes:category' category_id='20' %}">アニメ</a></li>
-      <li><a href="{% url 'poptimes:category' category_id='14' %}">映像</a></li>
-      <li><a href="{% url 'poptimes:category' category_id='17' %}">スポーツ</a></li>
-      <li><a href="{% url 'poptimes:category' category_id='15' %}">音楽</a></li>
-      <li><a href="{% url 'poptimes:category' category_id='37' %}">メンズ</a></li>
-      <li><a href="{% url 'poptimes:category' category_id='68' %}">遊園地</a></li>
-      <li><a href="{% url 'poptimes:category' category_id='43' %}">外食</a></li>
-      <li><a href="{% url 'poptimes:category' category_id='42' %}">飲み物</a></li>
-      <li><a href="{% url 'poptimes:category' category_id='45' %}">美容</a></li>
-      <li><a href="{% url 'poptimes:category' category_id='23' %}">スマホゲー</a></li>
-      <li><a href="{% url 'poptimes:category' category_id='25' %}">おもちゃ</a></li>
-      <li><a href="{% url 'poptimes:category' category_id='41' %}">食べ物</a></li>
-      <li><a href="{% url 'poptimes:category' category_id='36' %}">レディース</a></li>
-      <li><a href="{% url 'poptimes:category' category_id='13' %}">本</a></li>
-      <li><a href="{% url 'poptimes:category' category_id='67' %}">観光</a></li>
+      {% for category in category_list %}
+      {% if category.id == view.kwargs.category_id %}
+        <li class="current"><a href="{% url 'poptimes:category' category_id=category.id %}">{{ category.name }}</a></li>
+      {% else %}
+        <li><a href="{% url 'poptimes:category' category_id=category.id %}">{{ category.name }}</a></li>
+      {% endif %}
+      {% endfor %}
     </ul>
   </nav>
   <main class="main">

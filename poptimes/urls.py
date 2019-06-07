@@ -8,6 +8,6 @@ urlpatterns = [
          views.CategoryView.as_view(), name='category'),
     path('<slug:company_id>/<slug:release_id>',
          views.EntryView.as_view(), name='detail'),
-    path('<slug:company_id>/<slug:release_id>/comment',
-         views.send_comment, name='comment'),
+    # path('<slug:company_id>/<slug:release_id>/comment',
+    #      views.send_comment, name='comment'),
 ]
