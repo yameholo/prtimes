@@ -37,6 +37,20 @@
         </div>
         <p class="entry__body">{{ entry.body }}</p>
       </section>
+      {% if related_user_list %}
+      <section class="user">
+        <h1>関連ユーザー</h1>
+        <ul class="user__list">
+        {% for user in related_user_list %}
+          <li>
+            <a href="{{ user.user_url }}" target="_blank">
+              <img src="{{ user.icon_url }}" alt="{{ user.name }}">
+            </a>
+          </li>
+        {% endfor %}
+        </ul>
+      </section>
+      {% endif %}
       {% comment %} <section class="comment">
         <h1>コメント一覧 <i class="fas fa-comment"></i></h1>
         <form action="{% url 'poptimes:comment' company_id=entry.company_id release_id=entry.release_id %}"

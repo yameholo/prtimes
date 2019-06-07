@@ -3,6 +3,7 @@ from django.views.decorators.http import require_POST
 from django.views.generic import TemplateView, ListView
 
 from .prtimes_api import get_release_list, get_entry, get_category_release_list, get_category_list, get_current_category
+from .twitter_api import get_related_user
 
 from .models import Message
 
@@ -69,4 +70,7 @@ class EntryView(ListView):
         context = super().get_context_data(**kwargs)
         context["entry"] = get_entry(
             self.kwargs['company_id'], self.kwargs['release_id'])
+
+        title = context["entry"].title
+        context["related_user_list"] = get_related_user(title)
         return context

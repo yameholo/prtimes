@@ -3,3 +3,4 @@
 *.pyc
 __pycathe__/
 db.sqlite3
+poptimes/twitter_key.py

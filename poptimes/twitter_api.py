@@ -2,7 +2,7 @@ import json
 from typing import List, Dict
 from requests_oauthlib import OAuth1Session
 
-from poptimes.twitter_key import CK, CS, AT, ATS
+from .twitter_key import CK, CS, AT, ATS
 
 URL = 'https://api.twitter.com/1.1/search/tweets.json'
 
@@ -16,7 +16,7 @@ def create_params(q: str) -> Dict[str, str]:
     }
 
 
-def get_tweet_user(title: str) -> List[Dict[str, str]]:
+def get_related_user(title: str) -> List[Dict[str, str]]:
     """
     {title}のことについて呟いた人のユーザー情報
 
@@ -42,4 +42,4 @@ def get_tweet_user(title: str) -> List[Dict[str, str]]:
 
 
 if __name__ == '__main__':
-    print(json.dumps(get_tweet_user("テスト"), indent=2))
+    print(json.dumps(get_related_user("テスト"), indent=2))
