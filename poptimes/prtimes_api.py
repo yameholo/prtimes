@@ -1,3 +1,4 @@
+from bs4 import BeautifulSoup
 import json
 import requests
 
@@ -19,11 +20,12 @@ class Release:
 
 
 class Entry:
-    def __init__(self, title, subtitle, desc, main_image, images,
+    def __init__(self, title, subtitle, desc, body, main_image, images,
                  animation_images, company_id, release_id):
         self.title = title
         self.subtitle = subtitle
         self.desc = desc
+        self.body = body
         self.main_image = main_image
         self.images = images
         self.company_id = company_id
@@ -104,6 +106,9 @@ def get_entry(company_id, release_id):
     title = data['title']
     subtitle = data['subtitle']
     desc = data['head']
+    body = data['body']
+    desc = BeautifulSoup(desc).text
+    body = BeautifulSoup(body).text
     main_image = get_main_image(data)
 
     images = []
@@ -116,7 +121,7 @@ def get_entry(company_id, release_id):
         if data['animation_image' + str(i)]:
             animation_images.append(data['animation_image' + str(i)])
 
-    entry = Entry(title, subtitle, desc, main_image, images,
+    entry = Entry(title, subtitle, desc, body, main_image, images,
                   animation_images, company_id, release_id)
 
     return entry
